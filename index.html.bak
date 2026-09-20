@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08030f" />
+
+  <title>aimxyz — Personal Profile</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #08030f;
+      --card: rgba(20, 10, 34, 0.72);
+      --card-border: rgba(216, 180, 254, 0.16);
+      --text: #ffffff;
+      --muted: #a89bb8;
+      --purple: #a855f7;
+      --pink: #ec4899;
+      --cyan: #67e8f9;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .background-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -5;
+      opacity: 0.24;
+      pointer-events: none;
+    }
+
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      background: linear-gradient(
+        180deg,
+        rgba(8, 3, 15, 0.82),
+        rgba(8, 3, 15, 0.9)
+      );
+      pointer-events: none;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      opacity: 0.05;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+
+    .orb {
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.13;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .orb-one {
+      top: 5%;
+      left: -100px;
+      background: var(--purple);
+    }
+
+    .orb-two {
+      top: 40%;
+      right: -100px;
+      background: var(--pink);
+    }
+
+    .orb-three {
+      bottom: -150px;
+      left: 30%;
+      background: var(--cyan);
+    }
+
+    .anime-particle {
+      position: fixed;
+      z-index: -1;
+      color: rgba(236, 72, 153, 0.4);
+      font-size: 22px;
+      pointer-events: none;
+      animation: floatParticle 9s ease-in-out infinite;
+    }
+
+    .particle-one {
+      top: 18%;
+      left: 7%;
+    }
+
+    .particle-two {
+      top: 34%;
+      right: 9%;
+      animation-delay: 2s;
+    }
+
+    .particle-three {
+      top: 62%;
+      left: 12%;
+      animation-delay: 4s;
+    }
+
+    .particle-four {
+      top: 76%;
+      right: 15%;
+      animation-delay: 1s;
+    }
+
+    .particle-five {
+      bottom: 8%;
+      left: 45%;
+      animation-delay: 5s;
+    }
+
+    @keyframes floatParticle {
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-22px) rotate(18deg);
+      }
+    }
+
+    .container {
+      width: min(100% - 32px, 760px);
+      margin: auto;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 26px 0 18px;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+
+    .brand span {
+      color: var(--purple);
+    }
+
+    .nav-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .hero {
+      padding: 46px 0 32px;
+      text-align: center;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 999px;
+      background: rgba(168, 85, 247, 0.08);
+      color: #d8b4fe;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 12px #4ade80;
+    }
+
+    .avatar-ring {
+      width: 126px;
+      height: 126px;
+      margin: 25px auto 22px;
+      padding: 4px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--pink),
+        var(--cyan)
+      );
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--bg);
+    }
+
+    .eyebrow {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 11vw, 66px);
+      line-height: 1;
+      letter-spacing: -3px;
+      font-weight: 800;
+      background: linear-gradient(
+        135deg,
+        #ffffff,
+        #d8b4fe 45%,
+        #f9a8d4
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .username {
+      margin-top: 13px;
+      color: #d8b4fe;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .description {
+      max-width: 540px;
+      margin: 20px auto 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .tagline {
+      margin-top: 14px;
+      color: #f9a8d4;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 16px;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      background: rgba(20, 10, 34, 0.65);
+      color: #e9d5ff;
+      font-size: 12px;
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+
+    .social-link:hover {
+      border-color: rgba(216, 180, 254, 0.45);
+      background: rgba(168, 85, 247, 0.13);
+      transform: translateY(-3px);
+    }
+
+    .social-icon {
+      width: 18px;
+      height: 18px;
+      display: grid;
+      place-items: center;
+      color: #d8b4fe;
+    }
+
+    .social-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .section {
+      margin-top: 34px;
+    }
+
+    .section-heading {
+      margin-bottom: 16px;
+    }
+
+    .section-heading h2 {
+      font-size: 18px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-heading p {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .video-slider {
+      width: min(100%, 330px);
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      background: rgba(20, 10, 34, 0.75);
+    }
+
+    .video-track {
+      display: flex;
+      transition: transform 0.65s ease;
+    }
+
+    .video-slide {
+      flex: 0 0 100%;
+      aspect-ratio: 4 / 3;
+      background: #050208;
+    }
+
+    .video-slide video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      background: #050208;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 15px;
+    }
+
+    .slider-dot {
+      width: 7px;
+      height: 7px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(216, 180, 254, 0.25);
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .slider-dot.active {
+      width: 22px;
+      border-radius: 999px;
+      background: var(--purple);
+    }
+
+    .waguri-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px;
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      background: var(--card);
+      backdrop-filter: blur(18px);
+    }
+
+    .waguri-image-wrap {
+      flex: 0 0 40%;
+      overflow: hidden;
+      border-radius: 17px;
+      background: #160b24;
+    }
+
+    .waguri-image-wrap img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      display: block;
+      object-fit: cover;
+    }
+
+    .waguri-content {
+      min-width: 0;
+    }
+
+    .waguri-label {
+      margin-bottom: 9px;
+      color: #d8b4fe;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .waguri-content h3 {
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: -0.7px;
+    }
+
+    .waguri-content p {
+      margin-top: 11px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .waguri-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 13px;
+    }
+
+    .waguri-meta span {
+      padding: 6px 9px;
+      border: 1px solid rgba(216, 180, 254, 0.14);
+      border-radius: 999px;
+      color: #d8b4fe;
+      font-size: 10px;
+      background: rgba(168, 85, 247, 0.08);
+    }
+
+    .about-card,
+    .contact-card {
+      padding: 22px;
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      background: var(--card);
+      backdrop-filter: blur(18px);
+    }
+
+    .about-card p,
+    .contact-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .stat {
+      padding: 18px 12px;
+      text-align: center;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      background: rgba(20, 10, 34, 0.65);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 23px;
+      color: #ffffff;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .contact-card h3 {
+      font-size: 17px;
+    }
+
+    .contact-card p {
+      margin-top: 7px;
+    }
+
+    .contact-button {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 15px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .contact-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(168, 85, 247, 0.2);
+    }
+
+    .music-player {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: calc(100% - 36px);
+      padding: 10px 15px 10px 10px;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      background: rgba(20, 10, 34, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .music-cover {
+      width: 45px;
+      height: 45px;
+      flex-shrink: 0;
+      object-fit: cover;
+      border-radius: 50%;
+      animation: musicRotate 7s linear infinite;
+      animation-play-state: paused;
+    }
+
+    .music-cover.playing {
+      animation-play-state: running;
+    }
+
+    @keyframes musicRotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .music-info {
+      min-width: 0;
+    }
+
+    .music-info strong {
+      display: block;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .music-info span {
+      display: block;
+      max-width: 150px;
+      margin-top: 5px;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    footer {
+      padding: 50px 0 100px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.7s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(100% - 24px, 760px);
+      }
+
+      .hero {
+        padding-top: 35px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .waguri-card {
+        align-items: flex-start;
+        gap: 14px;
+        padding: 14px;
+      }
+
+      .waguri-image-wrap {
+        flex-basis: 39%;
+      }
+
+      .waguri-content h3 {
+        font-size: 17px;
+      }
+
+      .waguri-content p {
+        font-size: 11px;
+        line-height: 1.7;
+      }
+
+      .contact-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .contact-button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .music-player {
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <video
+    class="background-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    src="https://files.catbox.moe/oqg7ib.mp4"
+  ></video>
+
+  <div class="background-overlay"></div>
+  <div class="noise"></div>
+
+  <div class="orb orb-one"></div>
+  <div class="orb orb-two"></div>
+  <div class="orb orb-three"></div>
+
+  <div class="anime-particle particle-one">✦</div>
+  <div class="anime-particle particle-two">✧</div>
+  <div class="anime-particle particle-three">✦</div>
+  <div class="anime-particle particle-four">✧</div>
+  <div class="anime-particle particle-five">✦</div>
+
+  <main class="container">
+    <nav class="navbar">
+      <a href="#" class="brand">aim<span>xyz</span></a>
+      <span class="nav-label">Personal Profile</span>
+    </nav>
+
+    <section class="hero reveal">
+      <div class="status">
+        <span class="status-dot"></span>
+        Available for learning
+      </div>
+
+      <div class="avatar-ring">
+        <img
+          class="avatar"
+          src="https://files.catbox.moe/rmtwrm.jpeg"
+          alt="Profile aimxyz"
+        />
+      </div>
+
+      <p class="eyebrow">Welcome to my profile</p>
+
+      <h1>aimxyz</h1>
+
+      <p class="username">@aimcuyyy</p>
+
+      <p class="description">
+        Hai, saya Aim. Saya sedang belajar coding, membuat website,
+        mengembangkan bot WhatsApp, dan mencoba berbagai project baru.
+      </p>
+
+      <p class="tagline">masih pemula tipis tipis😹</p>
+
+      <div class="socials">
+        <a
+          class="social-link"
+          href="https://instagram.com/aimcuyyy"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="social-icon">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.5" cy="6.5" r="1"></circle>
+            </svg>
+          </span>
+          <span>Instagram</span>
+        </a>
+
+        <a
+          class="social-link"
+          href="https://wa.me/6282117155752"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="social-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"></path>
+              <path d="M8.5 8.5c.2-.4.5-.4.8-.4h.5c.2 0 .4.1.5.4l.7 1.6c.1.2.1.4-.1.6l-.5.6c.7 1.2 1.7 2.1 2.9 2.7l.6-.6c.2-.2.4-.2.7-.1l1.5.7c.3.1.4.3.3.6-.2.7-.7 1.3-1.4 1.5-1.1.3-3.1-.5-4.7-1.9-1.5-1.3-2.4-3.1-2.5-4.2-.1-.6.1-1.1.7-1.5Z"></path>
+            </svg>
+          </span>
+          <span>WhatsApp</span>
+        </a>
+
+        <a class="social-link" href="#contact">
+          <span class="social-icon">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="5" width="18" height="14" rx="3"></rect>
+              <path d="m4 7 8 6 8-6"></path>
+            </svg>
+          </span>
+          <span>Contact</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="section-heading">
+        <h2>My video</h2>
+        <p>Geser untuk melihat video</p>
+      </div>
+
+      <div class="video-slider" id="videoSlider">
+        <div class="video-track" id="videoTrack">
+          <div class="video-slide">
+            <video
+              src="https://files.catbox.moe/coyo57.mp4"
+              muted
+              autoplay
+              loop
+              playsinline
+            ></video>
+          </div>
+
+          <div class="video-slide">
+            <video
+              src="https://files.catbox.moe/wwu99l.mp4"
+              muted
+              loop
+              playsinline
+            ></video>
+          </div>
+
+          <div class="video-slide">
+            <video
+              src="https://files.catbox.moe/b6nlo4.mp4"
+              muted
+              loop
+              playsinline
+            ></video>
+          </div>
+
+          <div class="video-slide">
+            <video
+              src="https://files.catbox.moe/71jyx1.mp4"
+              muted
+              loop
+              playsinline
+            ></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-dots" id="sliderDots">
+        <button class="slider-dot active" aria-label="Video 1"></button>
+        <button class="slider-dot" aria-label="Video 2"></button>
+        <button class="slider-dot" aria-label="Video 3"></button>
+        <button class="slider-dot" aria-label="Video 4"></button>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="waguri-card">
+        <div class="waguri-image-wrap">
+          <img
+            src="https://files.catbox.moe/8e37vn.jpeg"
+            alt="Kaoruko Waguri"
+          />
+        </div>
+
+        <div class="waguri-content">
+          <div class="waguri-label">Anime Character</div>
+
+          <h3>Kaoruko Waguri</h3>
+
+          <p>
+            Kaoruko Waguri adalah salah satu karakter utama dari anime
+            The Fragrant Flower Blooms with Dignity. Ia dikenal sebagai
+            sosok yang ceria, baik hati, jujur, dan sangat menyukai makanan
+            serta kue.
+          </p>
+
+          <p>
+            Anime ini menceritakan hubungan dan persahabatan antara siswa
+            dari dua sekolah yang memiliki perbedaan latar belakang.
+          </p>
+
+          <div class="waguri-meta">
+            <span>Kaoruko Waguri</span>
+            <span>Romance</span>
+            <span>School Life</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="section-heading">
+        <h2>About me</h2>
+        <p>Sedikit informasi tentang saya</p>
+      </div>
+
+      <div class="about-card">
+        <p>
+          Saya suka mencoba hal-hal baru yang berhubungan dengan teknologi.
+          Saat ini saya sedang mempelajari JavaScript, Node.js, HTML, CSS,
+          API, serta pengembangan bot WhatsApp.
+        </p>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>9+</strong>
+          <span>Skills</span>
+        </div>
+
+        <div class="stat">
+          <strong>24/7</strong>
+          <span>Learning</span>
+        </div>
+
+        <div class="stat">
+          <strong>∞</strong>
+          <span>Ideas</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="contact">
+      <div class="section-heading">
+        <h2>Contact</h2>
+        <p>Hubungi saya melalui WhatsApp</p>
+      </div>
+
+      <div class="contact-card">
+        <div>
+          <h3>Let's connect</h3>
+          <p>
+            Jika ingin menghubungi saya, silakan kirim pesan melalui WhatsApp.
+          </p>
+        </div>
+
+        <a
+          class="contact-button"
+          href="https://wa.me/6282117155752"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Contact me
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> aimxyz. Made with curiosity.
+    </footer>
+  </main>
+
+  <div class="music-player">
+    <img
+      id="musicCover"
+      class="music-cover"
+      src="https://files.catbox.moe/hlbn5q.jpeg"
+      alt="Background Music"
+    />
+
+    <div class="music-info">
+      <strong>Background Music</strong>
+      <span>aimxyz profile</span>
+    </div>
+
+    <audio
+      id="backgroundMusic"
+      src="https://files.catbox.moe/fxy98h.mpeg"
+      loop
+      preload="auto"
+    ></audio>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+    revealElements.forEach((element) => {
+      revealObserver.observe(element);
+    });
+
+    const music = document.getElementById("backgroundMusic");
+    const musicCover = document.getElementById("musicCover");
+
+    async function startMusic() {
+      try {
+        await music.play();
+        musicCover.classList.add("playing");
+      } catch (error) {
+        console.log("Autoplay diblokir browser.");
+      }
+    }
+
+    music.addEventListener("play", () => {
+      musicCover.classList.add("playing");
+    });
+
+    music.addEventListener("pause", () => {
+      musicCover.classList.remove("playing");
+    });
+
+    window.addEventListener("load", startMusic);
+
+    document.addEventListener(
+      "click",
+      () => {
+        if (music.paused) {
+          startMusic();
+        }
+      },
+      {
+        once: true
+      }
+    );
+
+    const videoTrack = document.getElementById("videoTrack");
+    const videoSlider = document.getElementById("videoSlider");
+    const sliderDots = document.querySelectorAll(".slider-dot");
+    const videos = document.querySelectorAll(".video-slide video");
+
+    let currentSlide = 0;
+    let slideTimer;
+    let startX = 0;
+    let endX = 0;
+
+    function showSlide(index) {
+      currentSlide = (index + videos.length) % videos.length;
+
+      videoTrack.style.transform =
+        "translateX(-" + currentSlide * 100 + "%)";
+
+      sliderDots.forEach((dot, dotIndex) => {
+        dot.classList.toggle(
+          "active",
+          dotIndex === currentSlide
+        );
+      });
+
+      videos.forEach((video, videoIndex) => {
+        if (videoIndex === currentSlide) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }
+
+    function startSlider() {
+      clearInterval(slideTimer);
+
+      slideTimer = setInterval(() => {
+        showSlide(currentSlide + 1);
+      }, 4000);
+    }
+
+    sliderDots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        showSlide(index);
+        startSlider();
+      });
+    });
+
+    videoSlider.addEventListener(
+      "touchstart",
+      (event) => {
+        startX = event.touches[0].clientX;
+      },
+      {
+        passive: true
+      }
+    );
+
+    videoSlider.addEventListener(
+      "touchend",
+      (event) => {
+        endX = event.changedTouches[0].clientX;
+
+        const distance = startX - endX;
+
+        if (Math.abs(distance) > 45) {
+          if (distance > 0) {
+            showSlide(currentSlide + 1);
+          } else {
+            showSlide(currentSlide - 1);
+          }
+
+          startSlider();
+        }
+      },
+      {
+        passive: true
+      }
+    );
+
+    showSlide(0);
+    startSlider();
+
+    const backgroundVideo = document.querySelector(".background-video");
+
+    backgroundVideo.addEventListener("error", () => {
+      backgroundVideo.style.display = "none";
+    });
+  </script>
+</body>
+</html>
